@@ -20,8 +20,11 @@
         <activity
             android:name=".EvaluacionTTA"
             android:label="@string/evaluacion" />
-        <activity android:name=".NuevoTest"
-            android:label="@string/nuevotest"></activity>
+        <activity
+            android:name=".NuevoTest"
+            android:label="@string/nuevotest" />
+        <activity android:name=".NuevoEjercicio"
+            android:label="@string/nuevoeje"></activity>
     </application>
 
 </manifest>

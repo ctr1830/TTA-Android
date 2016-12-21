@@ -3,6 +3,7 @@
     <string name="login">Alumno de TTA</string>
     <string name="evaluacion">Evaluación TTA</string>
     <string name="nuevotest">Nuevo Test</string>
+    <string name="nuevoeje">Nuevo Ejercicio</string>
 
     <string name="usuario">Usuario:</string>
     <string name="contrasena">Contraseña:</string>
@@ -16,5 +17,9 @@
     <string name="bseguimiento">SEGUIMIENTO</string>
     <string name="benviar">ENVIAR</string>
     <string name="bayuda">VER AYUDA</string>
+    <string name="bsubir">SUBIR FICHERO</string>
+    <string name="bfoto">SACAR FOTO</string>
+    <string name="bgrabar_audio">GRABAR AUDIO</string>
+    <string name="bgrabar_video">GRABAR VIDEO</string>
 
 </resources>
