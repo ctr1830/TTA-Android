@@ -11,7 +11,7 @@
     tools:context="practicatta.eus.ehu.tta.intel.practicatta.EvaluacionTTA">
 
     <TextView
-        android:text="TextView"
+        android:text=""
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -20,7 +20,7 @@
         android:textSize="18sp" />
 
     <TextView
-        android:text="TextView"
+        android:text=""
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tituloyusername"
@@ -28,4 +28,30 @@
         android:layout_alignStart="@+id/tituloyusername"
         android:id="@+id/subtitulo"
         android:textSize="14sp" />
+
+    <Button
+        android:text="@string/bnuevotest"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/button2"
+        android:layout_below="@+id/subtitulo"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:text="@string/bnuevoeje"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/button3"
+        android:layout_below="@+id/button2"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:text="@string/bseguimiento"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/button"
+        android:layout_below="@+id/button3"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 </RelativeLayout>
