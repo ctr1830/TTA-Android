@@ -17,7 +17,7 @@
         android:text=""
         android:ems="10"
         android:hint="@string/Iusuario"
-        android:id="@+id/editText5"
+        android:id="@+id/usuario"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
@@ -27,18 +27,18 @@
         android:inputType="textPassword"
         android:hint="@string/Icontrasena"
         android:ems="10"
-        android:layout_below="@+id/editText5"
+        android:layout_below="@+id/usuario"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:id="@+id/editText6" />
+        android:id="@+id/contrasena" />
 
     <TextView
         android:text="@string/contrasena"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textView5"
-        android:layout_alignBaseline="@+id/editText6"
-        android:layout_alignBottom="@+id/editText6"
+        android:layout_alignBaseline="@+id/contrasena"
+        android:layout_alignBottom="@+id/contrasena"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -47,8 +47,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/usuario"
-        android:layout_alignBaseline="@+id/editText5"
-        android:layout_alignBottom="@+id/editText5"
+        android:layout_alignBaseline="@+id/usuario"
+        android:layout_alignBottom="@+id/usuario"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -56,8 +56,9 @@
         android:text="@string/bacceder"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/editText6"
+        android:layout_below="@+id/contrasena"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
-        android:id="@+id/acceder" />
+        android:id="@+id/acceder"
+        android:onClick="login"/>
 </RelativeLayout>

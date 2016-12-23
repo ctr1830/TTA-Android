@@ -5,6 +5,10 @@
     <string name="nuevotest">Nuevo Test</string>
     <string name="nuevoeje">Nuevo Ejercicio</string>
 
+            <string name="bienvenida">Bienvenido </string>
+            <string name="leccion1">Leccion 1: Introducción a Android</string>
+            <string name="enunciado">blablabla</string>
+
     <string name="usuario">Usuario:</string>
     <string name="contrasena">Contraseña:</string>
     <string name="Iusuario">Introduce usuario</string>
