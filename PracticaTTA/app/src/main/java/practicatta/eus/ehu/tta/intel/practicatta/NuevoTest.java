@@ -1,7 +1,9 @@
 package practicatta.eus.ehu.tta.intel.practicatta;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -13,6 +15,8 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 public class NuevoTest extends AppCompatActivity implements View.OnClickListener {
+    private String[] ayuda ={"<html><body>Esta es la ayuda de prueba</body></html>","video","audio"};
+    private String[] mime ={"text/html","video/mp4","audio/mpeg"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,8 +65,25 @@ public class NuevoTest extends AppCompatActivity implements View.OnClickListener
             grupo.getChildAt(eleccion).setBackgroundColor(Color.RED);
             Toast.makeText(getApplicationContext(), R.string.incorrecto, Toast.LENGTH_SHORT).show();
 
-            //if(advise!=null&&!advise.isEmpty())
-            findViewById(R.id.boton_ayuda).setVisibility(View.VISIBLE);
+            if(ayuda[eleccion]!=null) {
+                switch(eleccion) {
+                    case 0:
+                        layout.removeView(findViewById(R.id.boton_video));
+                        layout.removeView(findViewById(R.id.boton_audio));
+                        findViewById(R.id.boton_html).setVisibility(View.VISIBLE);
+                        break;
+                    case 1:
+                        layout.removeView(findViewById(R.id.boton_html));
+                        layout.removeView(findViewById(R.id.boton_audio));
+                        findViewById(R.id.boton_video).setVisibility(View.VISIBLE);
+                        break;
+                    case 2:
+                        layout.removeView(findViewById(R.id.boton_video));
+                        layout.removeView(findViewById(R.id.boton_html));
+                        findViewById(R.id.boton_audio).setVisibility(View.VISIBLE);
+                        break;
+                }
+            }
         }
         else{
             Toast.makeText(getApplicationContext(),R.string.correcto,Toast.LENGTH_SHORT).show();
@@ -70,15 +91,31 @@ public class NuevoTest extends AppCompatActivity implements View.OnClickListener
 
     }
 
-    public void verAyuda(View view){
+    public void showHtml(View view){
 
-        LinearLayout layout=(LinearLayout)findViewById(R.id.activity_nuevo_test);
-        String ayuda="<html><body>Esta es la ayuda de prueba</body></html>";
-        WebView w= new WebView(this);
+        RadioGroup grupo=(RadioGroup)findViewById(R.id.test_choices);
+        int opcion=grupo.getCheckedRadioButtonId();
 
-        w.loadData(ayuda,"text/html",null);
-        w.setBackgroundColor(Color.TRANSPARENT);
-        w.setLayerType(WebView.LAYER_TYPE_SOFTWARE,null);
-        layout.addView(w);
+        if(ayuda[opcion].substring(0,10).contains("://")){
+            Uri uri = Uri.parse(ayuda[opcion]);
+            Intent intent = new Intent(Intent.ACTION_VIEW,uri);
+            startActivity(intent);
+        }
+        else {
+
+            LinearLayout layout = (LinearLayout) findViewById(R.id.activity_nuevo_test);
+            WebView w = new WebView(this);
+
+            w.loadData(ayuda[opcion], mime[opcion], null);
+            w.setBackgroundColor(Color.TRANSPARENT);
+            w.setLayerType(WebView.LAYER_TYPE_SOFTWARE, null);
+            layout.addView(w);
+        }
+    }
+    public void showVideo(View view, String ayuda,String mime){
+        
+    }
+    public void showAudio(View view, String ayuda,String mime){
+
     }
 }
