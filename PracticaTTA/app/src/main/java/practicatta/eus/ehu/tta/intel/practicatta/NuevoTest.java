@@ -22,7 +22,7 @@ import android.widget.VideoView;
 import java.io.IOException;
 
 public class NuevoTest extends AppCompatActivity implements View.OnClickListener {
-    private String[] ayuda = {"<html><body>Esta es la ayuda de prueba</body></html>", "video", "audio"};
+    private String[] ayuda = {"<html><body>Esta es la ayuda de prueba</body></html>", "http://u017633.ehu.eus:28080/static/ServidorTta/AndroidManifest.mp4", "audio"};
     private String[] mime = {"text/html", "video/mp4", "audio/mpeg"};
 
     @Override
@@ -125,7 +125,8 @@ public class NuevoTest extends AppCompatActivity implements View.OnClickListener
         ViewGroup.LayoutParams parameters = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         video.setLayoutParams(parameters);
 
-        video.setVideoPath("storage/sdcard0/Movies/video.mp4");
+        //video.setVideoPath("storage/sdcard0/Movies/video.mp4");
+        video.setVideoURI(Uri.parse("http://u017633.ehu.eus:28080/static/ServidorTta/AndroidManifest.mp4"));
 
         MediaController controller = new MediaController(this) {
             @Override
