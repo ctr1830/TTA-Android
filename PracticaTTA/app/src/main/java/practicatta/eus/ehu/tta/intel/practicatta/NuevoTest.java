@@ -8,7 +8,9 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
@@ -25,9 +27,8 @@ import java.io.IOException;
 public class NuevoTest extends AppCompatActivity implements View.OnClickListener {
     private String[] ayuda = {"<html><body>Esta es la ayuda de prueba</body></html>", "http://u017633.ehu.eus:28080/static/ServidorTta/AndroidManifest.mp4", "audio"};
     private String[] mime = {"text/html", "video/mp4", "audio/mpeg"};
-//    private View v=new View(this);
-//    private MediaPlayer player;
-//    private MediaController controller;
+    private MediaPlayer mediaPlayer=new MediaPlayer();
+    private MediaController mediaController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -157,101 +158,6 @@ public class NuevoTest extends AppCompatActivity implements View.OnClickListener
     }
 
     public void showAudio(String ayuda) {
-/*
-        LinearLayout layout = (LinearLayout) findViewById(R.id.activity_nuevo_test);
-        player.setOnPreparedListener(this);
-        controller=new MediaController(this){
-            @Override
-            public boolean dispatchKeyEvent(KeyEvent event){
-                if(event.getKeyCode()==KeyEvent.KEYCODE_BACK){
-                    release();
-                    //onExit.run();
-                }
-                return super.dispatchKeyEvent(event);
-            }
-        };
 
-        player.setAudioStreamType(AudioManager.STREAM_MUSIC);
-        try {
-            player.setDataSource(this,Uri.parse(ayuda));
-            player.prepare();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        layout.addView(v);
-        player.start();
-    }
-
-    public void release(){
-
-        if(player!=null){
-            player.stop();
-            player.release();
-            player=null;
-        }
-    }
-
-    @Override
-    public void onPrepared(MediaPlayer mediaPlayer) {
-
-        controller.setMediaPlayer(this);
-        controller.setAnchorView(v);
-        controller.show(0);
-    }
-
-    @Override
-    public void start() {
-
-    }
-
-    @Override
-    public void pause() {
-
-    }
-
-    @Override
-    public int getDuration() {
-        return 0;
-    }
-
-    @Override
-    public int getCurrentPosition() {
-        return 0;
-    }
-
-    @Override
-    public void seekTo(int i) {
-
-    }
-
-    @Override
-    public boolean isPlaying() {
-        return false;
-    }
-
-    @Override
-    public int getBufferPercentage() {
-        return 0;
-    }
-
-    @Override
-    public boolean canPause() {
-        return false;
-    }
-
-    @Override
-    public boolean canSeekBackward() {
-        return false;
-    }
-
-    @Override
-    public boolean canSeekForward() {
-        return false;
-    }
-
-    @Override
-    public int getAudioSessionId() {
-        return 0;
-    }*/
     }
 }

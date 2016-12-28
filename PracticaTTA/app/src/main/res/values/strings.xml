@@ -7,6 +7,9 @@
 
     <string name="incorrecto">¡Has fallado!</string>
     <string name="correcto">¡Correcto!</string>
+    <string name="no_camera">Camara necesaria para ejecutar esta función</string>
+    <string name="no_app">Instale una aplicación que pueda usar la camara</string>
+    <string name="no_api">Esta versión de Android no soporta esta caracteristica</string>
 
             <string name="bienvenida">Bienvenido </string>
             <string name="leccion1">Leccion 1: Introducción a Android</string>
