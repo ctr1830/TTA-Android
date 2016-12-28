@@ -19,8 +19,8 @@ public class AudioPlayer implements MediaController.MediaPlayerControl,MediaPlay
     private MediaPlayer player;
     private MediaController controller;
 
-   // public AudioPlayer(View v, final Runnable onExit){
-   public AudioPlayer(View v){
+    public AudioPlayer(View v, final Runnable onExit){
+   //public AudioPlayer(View v){
         this.view=view;
         player=new MediaPlayer();
         player.setOnPreparedListener(this);
