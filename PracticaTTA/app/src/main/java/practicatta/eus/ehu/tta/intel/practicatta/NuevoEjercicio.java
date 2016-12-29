@@ -3,10 +3,12 @@ package practicatta.eus.ehu.tta.intel.practicatta;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.provider.OpenableColumns;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -95,6 +97,39 @@ public class NuevoEjercicio extends AppCompatActivity {
         }
     }
 
+    public void dumpMetaData(Uri uri){
+
+        Cursor cursor = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN) {
+            cursor =NuevoEjercicio.this.getContentResolver()
+            .query(uri, null, null, null, null, null);
+        }
+        else {
+            Toast.makeText(this,R.string.no_api,Toast.LENGTH_SHORT).show();
+        }
+        try {
+            if (cursor != null && cursor.moveToFirst()) {
+
+                String displayName = cursor.getString(
+                        cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
+
+
+                int sizeIndex = cursor.getColumnIndex(OpenableColumns.SIZE);
+                String size = null;
+                if (!cursor.isNull(sizeIndex)) {
+
+                    size = cursor.getString(sizeIndex);
+                    Toast.makeText(this,displayName+" "+ size + " bytes",Toast.LENGTH_SHORT).show();
+                } else {
+                    size = "Unknown";
+                    Toast.makeText(this,displayName,Toast.LENGTH_SHORT).show();
+                }
+            }
+        } finally {
+            cursor.close();
+        }
+    }
+
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
         if( resultCode != Activity.RESULT_OK)
             return;
@@ -110,7 +145,11 @@ public class NuevoEjercicio extends AppCompatActivity {
                 Toast.makeText(this,"audio adquirido",Toast.LENGTH_SHORT).show();
                 break;
             case READ_REQUEST_CODE:
-                Toast.makeText(this,"audio adquirido",Toast.LENGTH_SHORT).show();
+                Uri uri=null;
+                if(data != null){
+                    uri=data.getData();
+                    dumpMetaData(uri);
+                }
                 break;
         }
     }
