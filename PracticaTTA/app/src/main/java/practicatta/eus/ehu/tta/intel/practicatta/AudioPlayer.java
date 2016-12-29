@@ -21,7 +21,7 @@ public class AudioPlayer implements MediaController.MediaPlayerControl,MediaPlay
 
     public AudioPlayer(View v, final Runnable onExit){
    //public AudioPlayer(View v){
-        this.view=view;
+        this.view=v;
         player=new MediaPlayer();
         player.setOnPreparedListener(this);
         controller=new MediaController(view.getContext()){
@@ -29,7 +29,7 @@ public class AudioPlayer implements MediaController.MediaPlayerControl,MediaPlay
             public boolean dispatchKeyEvent(KeyEvent event){
                 if(event.getKeyCode()==KeyEvent.KEYCODE_BACK){
                     release();
-                    //onExit.run();
+                    onExit.run();
                 }
                 return super.dispatchKeyEvent(event);
             }

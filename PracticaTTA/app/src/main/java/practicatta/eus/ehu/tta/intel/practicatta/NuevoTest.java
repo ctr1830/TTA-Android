@@ -22,10 +22,12 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 import android.widget.VideoView;
 
+import junit.runner.BaseTestRunner;
+
 import java.io.IOException;
 
 public class NuevoTest extends AppCompatActivity implements View.OnClickListener {
-    private String[] ayuda = {"<html><body>Esta es la ayuda de prueba</body></html>", "http://u017633.ehu.eus:28080/static/ServidorTta/AndroidManifest.mp4", "audio"};
+    private String[] ayuda = {"<html><body>Esta es la ayuda de prueba</body></html>", "http://u017633.ehu.eus:28080/static/ServidorTta/AndroidManifest.mp4", "/storage/sdcard0/Music/audio.mp3"};
     private String[] mime = {"text/html", "video/mp4", "audio/mpeg"};
     private MediaPlayer mediaPlayer=new MediaPlayer();
     private MediaController mediaController;
@@ -131,7 +133,6 @@ public class NuevoTest extends AppCompatActivity implements View.OnClickListener
         ViewGroup.LayoutParams parameters = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         video.setLayoutParams(parameters);
 
-        //video.setVideoPath("storage/sdcard0/Movies/video.mp4");
         video.setVideoURI(Uri.parse(url));
 
         MediaController controller = new MediaController(this) {
@@ -159,5 +160,19 @@ public class NuevoTest extends AppCompatActivity implements View.OnClickListener
 
     public void showAudio(String ayuda) {
 
+        LinearLayout layout = (LinearLayout) findViewById(R.id.activity_nuevo_test);
+        View v=new View(this);
+        AudioPlayer audio=new AudioPlayer(v, new Runnable() {
+            @Override
+            public void run() {
+                finish();
+            }
+        });
+        try {
+            audio.setAudioUri(Uri.parse(ayuda));
+            layout.addView(v);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
