@@ -1,4 +1,4 @@
-package Model;
+package Business;
 
 import android.app.ProgressDialog;
 import android.content.Context;

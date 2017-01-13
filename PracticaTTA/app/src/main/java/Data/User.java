@@ -22,7 +22,7 @@ public class User implements Serializable{
         this.lesson_title=lesson_title;
         this.next_test=next_test;
         this.next_exercise=next_exercise;
-    }
+   }
 
     public int getId(){
         return this.id;

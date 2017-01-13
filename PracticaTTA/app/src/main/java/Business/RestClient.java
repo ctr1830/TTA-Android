@@ -1,4 +1,4 @@
-package Model;
+package Business;
 
 import android.util.Base64;
 
@@ -49,6 +49,9 @@ public class RestClient {
     private HttpURLConnection getConnection(String path) throws IOException{
         URL url=new URL(String.format("%s/%s",baseUrl,path));
         HttpURLConnection conn=(HttpURLConnection)url.openConnection();
+        for (Map.Entry<String,String> property : properties.entrySet())
+            conn.setRequestProperty(property.getKey(),property.getValue());
+        conn.setUseCaches(false);
         return conn;
     }
 
