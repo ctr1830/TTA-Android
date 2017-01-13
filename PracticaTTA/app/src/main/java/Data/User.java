@@ -1,19 +1,21 @@
 package Data;
 
+import java.io.Serializable;
+
 /**
  * Created by cristian on 13/01/17.
  */
 
-public class User {
+public class User implements Serializable{
 
-    private Integer id;
+    private int id;
     private String username;
-    private Integer lesson_number;
+    private int lesson_number;
     private String lesson_title;
-    private Integer next_test;
-    private Integer next_exercise;
+    private int next_test;
+    private int next_exercise;
 
-    public User(Integer id,String username, Integer lesson_number,String lesson_title, Integer next_test, Integer next_exercise){
+    public User(int id,String username, int lesson_number,String lesson_title, int next_test, int next_exercise){
         this.id=id;
         this.username=username;
         this.lesson_number=lesson_number;
@@ -22,10 +24,10 @@ public class User {
         this.next_exercise=next_exercise;
     }
 
-    public Integer getId(){
+    public int getId(){
         return this.id;
     }
-    public void setId(Integer id){
+    public void setId(int id){
         this.id=id;
     }
     public String getUsername(){
@@ -36,11 +38,11 @@ public class User {
         this.username=username;
     }
 
-    public Integer getLesson_number(){
+    public int getLesson_number(){
         return this.lesson_number;
     }
 
-    public void setLesson_number(Integer lesson_number){
+    public void setLesson_number(int lesson_number){
         this.lesson_number=lesson_number;
     }
     public String getLesson_title(){
@@ -49,16 +51,16 @@ public class User {
     public void setLesson_title(String lesson_title){
         this.lesson_title=lesson_title;
     }
-    public Integer getNext_test(){
+    public int getNext_test(){
         return this.next_test;
     }
-    public void setNext_test(Integer next_test){
+    public void setNext_test(int next_test){
         this.next_test=next_test;
     }
-    public Integer getNext_exercise(){
+    public int getNext_exercise(){
         return this.next_exercise;
     }
-    public void setNext_exercise(Integer next_exercise){
+    public void setNext_exercise(int next_exercise){
         this.next_exercise=next_exercise;
     }
 }

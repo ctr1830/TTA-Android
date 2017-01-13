@@ -6,7 +6,18 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 
+import java.io.IOException;
+
+import Data.User;
+import Model.Comunicacion;
+import Model.RestClient;
+
 public class MainActivity extends AppCompatActivity {
+
+    private User data;
+    private RestClient cliente;
+    private String url="http://u017633.ehu.eus:28080/ServidorTta/rest/tta";
+    private String path="getStatus?dni=";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,8 +36,20 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
-    public boolean authenticate(String username,String password){
+    public boolean authenticate(final String username, final String password){
+        new Comunicacion<User>(this){
+            @Override
+            protected User work() throws Exception{
+                cliente.setHttpBasicAuth(username,password);
+                cliente.getJson()
+                return
+            }
 
+            @Override
+            protected void onFinish(User result) {
+
+            }
+        }.execute();
         return true;
     }
 }
