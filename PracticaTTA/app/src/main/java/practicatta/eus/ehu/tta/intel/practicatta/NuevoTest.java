@@ -26,6 +26,10 @@ import junit.runner.BaseTestRunner;
 
 import java.io.IOException;
 
+import Business.Comunicacion;
+import Business.ObtencionDatos;
+import Data.Test;
+
 public class NuevoTest extends AppCompatActivity implements View.OnClickListener {
     public final static String EXTRA_DNI="";
     public final static String EXTRA_PASSWD="";
@@ -42,7 +46,7 @@ public class NuevoTest extends AppCompatActivity implements View.OnClickListener
         String dni=intent.getStringExtra(EXTRA_DNI);
         String passwd=intent.getStringExtra(EXTRA_PASSWD);
 
-        pedirTest();
+        pedirTest(dni,passwd);
         /*
         RadioGroup grupo = (RadioGroup) findViewById(R.id.test_choices);
         int i;
@@ -56,6 +60,21 @@ public class NuevoTest extends AppCompatActivity implements View.OnClickListener
         */
     }
 
+    public void pedirTest(final String dni, final String passwd){
+        new Comunicacion<Test>(this){
+            @Override
+            protected Test work() throws Exception{
+                ObtencionDatos data = new ObtencionDatos(dni,passwd);
+                Test test=data.getTest();
+                return test;
+            }
+
+            @Override
+            protected void onFinish(Test result) {
+
+            }
+        }.execute();
+    }
 
     @Override
     public void onClick(View view) {

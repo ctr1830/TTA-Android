@@ -1,7 +1,11 @@
 package Business;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.IOException;
+
+import Data.Test;
 import Data.User;
 
 /**
@@ -35,5 +39,24 @@ public class ObtencionDatos {
 
         User user = new User (id,username,lesson_number,lesson_title,next_exercise,next_test);
         return user;
+    }
+
+    public Test getTest() throws Exception{
+        JSONObject json;
+        Test test = new Test();
+        cliente.setHttpBasicAuth(dni,password);
+        json = cliente.getJson("getTest?id=1");
+
+        test.setWording(json.getString("wording"));
+        JSONArray array =json.getJSONArray("choices");
+        for(int i=0; i< array.length();i++){
+            JSONObject item=array.getJSONObject(i);
+            //pagina 16 diapositivas
+            
+        }
+
+
+        return test;
+
     }
 }
