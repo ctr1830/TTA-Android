@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
         String username =((EditText)findViewById(R.id.usuario)).getText().toString();
         String passwd =((EditText)findViewById(R.id.contrasena)).getText().toString();
 
+        //authenticate(username,passwd);
         authenticate("12345678A","tta");
 
     }
@@ -43,6 +44,8 @@ public class MainActivity extends AppCompatActivity {
             protected void onFinish(User result) {
                 Intent  intent =new Intent(MainActivity.this,EvaluacionTTA.class);
                 intent.putExtra(EvaluacionTTA.EXTRA_LOGIN,result.getUsername());
+                intent.putExtra(EvaluacionTTA.EXTRA_DNI,dni);
+                intent.putExtra(EvaluacionTTA.EXTRA_PASSWD,pass);
                 startActivity(intent);
             }
         }.execute();

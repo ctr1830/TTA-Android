@@ -9,6 +9,8 @@ import android.widget.TextView;
 
 public class EvaluacionTTA extends AppCompatActivity {
     public final static String EXTRA_LOGIN= "es.tta.practicaTTA.login";
+    public final static String EXTRA_DNI="";
+    public final static String EXTRA_PASSWD="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,6 +19,9 @@ public class EvaluacionTTA extends AppCompatActivity {
 
         Intent intent =getIntent();
         String usuario=intent.getStringExtra(EXTRA_LOGIN);
+        String dni=intent.getStringExtra(EXTRA_DNI);
+        String passwd=intent.getStringExtra(EXTRA_PASSWD);
+
         TextView textLogin=(TextView)findViewById(R.id.tituloyusername);
         textLogin.setText("Bienvenido ".concat(usuario));
 
@@ -26,11 +31,15 @@ public class EvaluacionTTA extends AppCompatActivity {
 
     public void nuevoTest (View view) {
         Intent nuevotest= new Intent(this,NuevoTest.class);
+        nuevotest.putExtra(NuevoTest.EXTRA_DNI,EvaluacionTTA.EXTRA_DNI);
+        nuevotest.putExtra(NuevoTest.EXTRA_PASSWD,EvaluacionTTA.EXTRA_PASSWD);
         startActivity(nuevotest);
     }
 
     public void nuevoEjercicio (View view) {
         Intent nuevoejercicio= new Intent(this,NuevoEjercicio.class);
+        nuevoejercicio.putExtra(NuevoTest.EXTRA_DNI,EvaluacionTTA.EXTRA_DNI);
+        nuevoejercicio.putExtra(NuevoTest.EXTRA_PASSWD,EvaluacionTTA.EXTRA_PASSWD);
         startActivity(nuevoejercicio);
     }
 

@@ -27,6 +27,8 @@ import junit.runner.BaseTestRunner;
 import java.io.IOException;
 
 public class NuevoTest extends AppCompatActivity implements View.OnClickListener {
+    public final static String EXTRA_DNI="";
+    public final static String EXTRA_PASSWD="";
     private String[] ayuda = {"<html><body>Esta es la ayuda de prueba</body></html>", "http://u017633.ehu.eus:28080/static/ServidorTta/AndroidManifest.mp4", "/storage/sdcard0/Music/audio.mp3"};
     private String[] mime = {"text/html", "video/mp4", "audio/mpeg"};
     private MediaPlayer mediaPlayer=new MediaPlayer();
@@ -36,8 +38,12 @@ public class NuevoTest extends AppCompatActivity implements View.OnClickListener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nuevo_test);
-        //opciones();
+        Intent intent =getIntent();
+        String dni=intent.getStringExtra(EXTRA_DNI);
+        String passwd=intent.getStringExtra(EXTRA_PASSWD);
 
+        pedirTest();
+        /*
         RadioGroup grupo = (RadioGroup) findViewById(R.id.test_choices);
         int i;
         for (i = 0; i < 4; i++) {
@@ -47,11 +53,9 @@ public class NuevoTest extends AppCompatActivity implements View.OnClickListener
             radio.setId(i);
             grupo.addView(radio);
         }
+        */
     }
 
-    public void opciones() {
-        //Tema 3 pag 19
-    }
 
     @Override
     public void onClick(View view) {
