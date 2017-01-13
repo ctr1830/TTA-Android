@@ -33,6 +33,7 @@ public abstract class Comunicacion<T> extends AsyncTask<Void, Void, T> {
             result=work();
         }catch(Exception e){
             this.e=e;
+            e.printStackTrace();
         }
         return result;
     }
