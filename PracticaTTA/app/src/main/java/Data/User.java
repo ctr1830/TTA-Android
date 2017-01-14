@@ -15,14 +15,6 @@ public class User implements Serializable{
     private int next_test;
     private int next_exercise;
 
-    public User(int id,String username, int lesson_number,String lesson_title, int next_test, int next_exercise){
-        this.id=id;
-        this.username=username;
-        this.lesson_number=lesson_number;
-        this.lesson_title=lesson_title;
-        this.next_test=next_test;
-        this.next_exercise=next_exercise;
-   }
 
     public int getId(){
         return this.id;

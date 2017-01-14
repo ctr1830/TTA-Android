@@ -5,6 +5,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 
+import Data.Choice;
 import Data.Test;
 import Data.User;
 
@@ -25,19 +26,18 @@ public class ObtencionDatos {
     }
 
     public User getUser() throws Exception{
+        User user = new User ();
         JSONObject json;
 
         cliente.setHttpBasicAuth(dni,password);
         json = cliente.getJson(String.format("getStatus?dni=%s",dni));
-
-        int id=json.getInt("id");
-        String username=json.getString("user");
-        int lesson_number=json.getInt("lessonNumber");
-        String lesson_title=json.getString("lessonTitle");
-        int next_test=json.getInt("nextTest");
-        int next_exercise=json.getInt("nextExercise");
-
-        User user = new User (id,username,lesson_number,lesson_title,next_exercise,next_test);
+                
+        user.setId(json.getInt("id"));
+        user.setUsername(json.getString("user"));
+        user.setLesson_number(json.getInt("lessonNumber"));
+        user.setLesson_title(json.getString("lessonTitle"));
+        user.setNext_test(json.getInt("nextTest"));
+        user.setNext_exercise(json.getInt("nextExercise"));
         return user;
     }
 
@@ -51,12 +51,15 @@ public class ObtencionDatos {
         JSONArray array =json.getJSONArray("choices");
         for(int i=0; i< array.length();i++){
             JSONObject item=array.getJSONObject(i);
-            //pagina 16 diapositivas
-            
+            Choice choice =new Choice();
+            choice.setId(item.getInt("id"));
+            choice.setAdvise(item.getString("advise"));
+            choice.setAnswer(item.getString("answer"));
+            choice.setCorrect(item.getBoolean("correct"));
+            choice.setMime(item.optString("mime",null));
+            test.setChoices(choice);
         }
-
-
         return test;
-
     }
+
 }

@@ -1,6 +1,8 @@
 package practicatta.eus.ehu.tta.intel.practicatta;
 
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -15,10 +17,25 @@ import Business.RestClient;
 
 public class MainActivity extends AppCompatActivity {
 
+    private NetworkReceiver receiver;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+    }
+    protected void onResume(){
+        super.onResume();
+        IntentFilter filter= new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        receiver = new NetworkReceiver();
+        this.registerReceiver(receiver,filter);
+    }
+
+    protected void onPause(){
+        super.onPause();
+        if(receiver != null){
+            this.unregisterReceiver(receiver);
+        }
     }
 
     public void login (View view) {
@@ -43,9 +60,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             protected void onFinish(User result) {
                 Intent  intent =new Intent(MainActivity.this,EvaluacionTTA.class);
-                intent.putExtra(EvaluacionTTA.EXTRA_LOGIN,result.getUsername());
-                intent.putExtra(EvaluacionTTA.EXTRA_DNI,dni);
-                intent.putExtra(EvaluacionTTA.EXTRA_PASSWD,pass);
+                Bundle extras=new Bundle();
+                extras.putString("username",result.getUsername());
+                extras.putString("dni",dni);
+                extras.putString("passwd",pass);
+                intent.putExtras(extras);
                 startActivity(intent);
             }
         }.execute();

@@ -19,6 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.MediaController;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
@@ -31,8 +32,8 @@ import Business.ObtencionDatos;
 import Data.Test;
 
 public class NuevoTest extends AppCompatActivity implements View.OnClickListener {
-    public final static String EXTRA_DNI="";
-    public final static String EXTRA_PASSWD="";
+    public static String dni;
+    public static String passwd;
     private String[] ayuda = {"<html><body>Esta es la ayuda de prueba</body></html>", "http://u017633.ehu.eus:28080/static/ServidorTta/AndroidManifest.mp4", "/storage/sdcard0/Music/audio.mp3"};
     private String[] mime = {"text/html", "video/mp4", "audio/mpeg"};
     private MediaPlayer mediaPlayer=new MediaPlayer();
@@ -42,9 +43,9 @@ public class NuevoTest extends AppCompatActivity implements View.OnClickListener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nuevo_test);
-        Intent intent =getIntent();
-        String dni=intent.getStringExtra(EXTRA_DNI);
-        String passwd=intent.getStringExtra(EXTRA_PASSWD);
+        Bundle extras=getIntent().getExtras();
+        dni = extras.getString("dni");
+        passwd = extras.getString("passwd");
 
         pedirTest(dni,passwd);
         /*
@@ -71,10 +72,20 @@ public class NuevoTest extends AppCompatActivity implements View.OnClickListener
 
             @Override
             protected void onFinish(Test result) {
-
+                TextView enunciado = (TextView)findViewById(R.id.test_enunciado);
+                enunciado.setText(result.getWording());
+                RadioGroup grupo = (RadioGroup) findViewById(R.id.test_choices);
+                for (int i = 0; i < result.getChoices().size(); i++) {
+                    RadioButton radio = new RadioButton(NuevoTest.this);
+                    radio.setText(result.getChoices().get(i).getAnswer());
+                    radio.setOnClickListener(NuevoTest.this);
+                    radio.setId(i);
+                    grupo.addView(radio);
+                }
             }
         }.execute();
     }
+
 
     @Override
     public void onClick(View view) {

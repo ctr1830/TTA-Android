@@ -18,8 +18,8 @@ import java.io.File;
 import java.io.IOException;
 
 public class NuevoEjercicio extends AppCompatActivity {
-    public final static String EXTRA_DNI="";
-    public final static String EXTRA_PASSWD="";
+    public static String dni;
+    public static String passwd;
     public final static int PICTURE_REQUEST_CODE=1;
     public final static int VIDEO_REQUEST_CODE=2;
     public final static int AUDIO_REQUEST_CODE=3;
@@ -29,9 +29,9 @@ public class NuevoEjercicio extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nuevo_ejercicio);
-        Intent intent =getIntent();
-        String dni=intent.getStringExtra(EXTRA_DNI);
-        String passwd=intent.getStringExtra(EXTRA_PASSWD);
+        Bundle extras=getIntent().getExtras();
+        dni = extras.getString("dni");
+        passwd = extras.getString("passwd");
     }
 
     public void sacarFoto(View view){
