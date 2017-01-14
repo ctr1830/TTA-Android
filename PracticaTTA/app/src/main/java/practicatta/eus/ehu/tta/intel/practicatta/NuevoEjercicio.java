@@ -12,10 +12,15 @@ import android.provider.OpenableColumns;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
 import java.io.IOException;
+
+import Business.Comunicacion;
+import Business.ObtencionDatos;
+import Data.Exercise;
 
 public class NuevoEjercicio extends AppCompatActivity {
     public static String dni;
@@ -32,6 +37,26 @@ public class NuevoEjercicio extends AppCompatActivity {
         Bundle extras=getIntent().getExtras();
         dni = extras.getString("dni");
         passwd = extras.getString("passwd");
+
+        pedirEjercicio();
+    }
+
+    public void pedirEjercicio(){
+        new Comunicacion<Exercise>(this){
+            @Override
+            protected Exercise work() throws Exception{
+                ObtencionDatos data = new ObtencionDatos(dni,passwd);
+                Exercise ejercicio= data.getEjercicio();
+                return ejercicio;
+            }
+
+            @Override
+            protected void onFinish(Exercise result) {
+                TextView enunciado = (TextView)findViewById(R.id.ejercicio_enunciado);
+                enunciado.setText(result.getWording());
+                setTitle(result.getTitle());
+            }
+        }.execute();
     }
 
     public void sacarFoto(View view){

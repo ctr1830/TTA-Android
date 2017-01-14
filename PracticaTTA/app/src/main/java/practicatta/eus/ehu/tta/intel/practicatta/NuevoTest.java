@@ -49,7 +49,7 @@ public class NuevoTest extends AppCompatActivity implements View.OnClickListener
         dni = extras.getString("dni");
         passwd = extras.getString("passwd");
 
-        pedirTest(dni,passwd);
+        pedirTest();
         /*
         RadioGroup grupo = (RadioGroup) findViewById(R.id.test_choices);
         int i;
@@ -63,7 +63,7 @@ public class NuevoTest extends AppCompatActivity implements View.OnClickListener
         */
     }
 
-    public void pedirTest(final String dni, final String passwd){
+    public void pedirTest(){
         new Comunicacion<Test>(this){
             @Override
             protected Test work() throws Exception{

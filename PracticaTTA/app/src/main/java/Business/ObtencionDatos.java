@@ -6,6 +6,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 
 import Data.Choice;
+import Data.Exercise;
 import Data.Test;
 import Data.User;
 
@@ -62,6 +63,19 @@ public class ObtencionDatos {
             test.setChoices(choice);
         }
         return test;
+    }
+
+    public Exercise getEjercicio() throws Exception{
+        JSONObject json;
+        Exercise ejercicio = new Exercise();
+        cliente.setHttpBasicAuth(dni,password);
+        json = cliente.getJson("getExercise?id=1");
+
+        ejercicio.setId(json.getInt("id"));
+        ejercicio.setWording(json.getString("wording"));
+        ejercicio.setTitle(json.getJSONObject("lessonBean").getString("title"));
+
+        return ejercicio;
     }
 
 }
