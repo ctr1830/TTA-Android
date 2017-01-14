@@ -31,7 +31,7 @@ public class ObtencionDatos {
 
         cliente.setHttpBasicAuth(dni,password);
         json = cliente.getJson(String.format("getStatus?dni=%s",dni));
-                
+
         user.setId(json.getInt("id"));
         user.setUsername(json.getString("user"));
         user.setLesson_number(json.getInt("lessonNumber"));
@@ -56,7 +56,9 @@ public class ObtencionDatos {
             choice.setAdvise(item.getString("advise"));
             choice.setAnswer(item.getString("answer"));
             choice.setCorrect(item.getBoolean("correct"));
-            choice.setMime(item.optString("mime",null));
+            if(item.optJSONObject("resourceType")!=null){
+            choice.setMime(item.optJSONObject("resourceType").optString("mime",null));
+            }
             test.setChoices(choice);
         }
         return test;

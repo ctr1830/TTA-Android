@@ -26,6 +26,7 @@ import android.widget.VideoView;
 import junit.runner.BaseTestRunner;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import Business.Comunicacion;
 import Business.ObtencionDatos;
@@ -34,8 +35,9 @@ import Data.Test;
 public class NuevoTest extends AppCompatActivity implements View.OnClickListener {
     public static String dni;
     public static String passwd;
-    private String[] ayuda = {"<html><body>Esta es la ayuda de prueba</body></html>", "http://u017633.ehu.eus:28080/static/ServidorTta/AndroidManifest.mp4", "/storage/sdcard0/Music/audio.mp3"};
-    private String[] mime = {"text/html", "video/mp4", "audio/mpeg"};
+    private int correcto;
+    private ArrayList<String>ayuda=new ArrayList<>();
+    private ArrayList<String>mime=new ArrayList<>();
     private MediaPlayer mediaPlayer=new MediaPlayer();
     private MediaController mediaController;
 
@@ -81,6 +83,11 @@ public class NuevoTest extends AppCompatActivity implements View.OnClickListener
                     radio.setOnClickListener(NuevoTest.this);
                     radio.setId(i);
                     grupo.addView(radio);
+                    if (result.getChoices().get(i).isCorrect()){
+                        correcto=i;
+                    }
+                    ayuda.add(result.getChoices().get(i).getAdvise());
+                    mime.add(result.getChoices().get(i).getMime());
                 }
             }
         }.execute();
@@ -95,7 +102,6 @@ public class NuevoTest extends AppCompatActivity implements View.OnClickListener
 
     public void enviar(View view) {
 
-        int correcto = 3; //Opcion 4
         RadioGroup grupo = (RadioGroup) findViewById(R.id.test_choices);
         int choices = grupo.getChildCount();
         LinearLayout layout = (LinearLayout) findViewById(R.id.activity_nuevo_test);
@@ -112,7 +118,7 @@ public class NuevoTest extends AppCompatActivity implements View.OnClickListener
         if (eleccion != correcto) {
             grupo.getChildAt(eleccion).setBackgroundColor(Color.RED);
             Toast.makeText(getApplicationContext(), R.string.incorrecto, Toast.LENGTH_SHORT).show();
-            if (ayuda[eleccion] != null) {
+            if (ayuda.get(eleccion) != null) {
                 findViewById(R.id.boton_ayuda).setVisibility(View.VISIBLE);
             }
         } else {
@@ -125,17 +131,16 @@ public class NuevoTest extends AppCompatActivity implements View.OnClickListener
         LinearLayout layout = (LinearLayout) findViewById(R.id.activity_nuevo_test);
         RadioGroup grupo = (RadioGroup) findViewById(R.id.test_choices);
         int eleccion = grupo.getCheckedRadioButtonId();
-            switch (eleccion) {
-                case 0:
-                    showHtml(ayuda[0]);
-                    break;
-                case 1:
-                    showVideo(ayuda[1]);
-                    break;
-                case 2:
-                    showAudio(ayuda[2]);
-                    break;
-            }
+
+        if(mime.get(eleccion).contains("html")){
+            showHtml(ayuda.get(eleccion));
+        }
+        else if(mime.get(eleccion).contains("video")){
+            showVideo(ayuda.get(eleccion));
+        }
+        else if(mime.get(eleccion).contains("audio")){
+            showAudio(ayuda.get(eleccion));
+        }
 
     }
 
@@ -153,7 +158,7 @@ public class NuevoTest extends AppCompatActivity implements View.OnClickListener
             LinearLayout layout = (LinearLayout) findViewById(R.id.activity_nuevo_test);
             WebView w = new WebView(this);
 
-            w.loadData(ayuda[opcion], mime[opcion], null);
+            w.loadData(ayuda.get(opcion), mime.get(opcion), null);
             w.setBackgroundColor(Color.TRANSPARENT);
             w.setLayerType(WebView.LAYER_TYPE_SOFTWARE, null);
             layout.addView(w);
