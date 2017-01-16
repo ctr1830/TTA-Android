@@ -62,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
                 Intent  intent =new Intent(MainActivity.this,EvaluacionTTA.class);
                 Bundle extras=new Bundle();
                 extras.putString("username",result.getUsername());
+                extras.putInt("user_id",result.getId());
                 extras.putString("dni",dni);
                 extras.putString("passwd",pass);
                 intent.putExtras(extras);

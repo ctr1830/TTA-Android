@@ -36,6 +36,7 @@ public class NuevoTest extends AppCompatActivity implements View.OnClickListener
     public static String dni;
     public static String passwd;
     private int correcto;
+    private int user_id;
     private ArrayList<String>ayuda=new ArrayList<>();
     private ArrayList<String>mime=new ArrayList<>();
     private MediaPlayer mediaPlayer=new MediaPlayer();
@@ -48,19 +49,25 @@ public class NuevoTest extends AppCompatActivity implements View.OnClickListener
         Bundle extras=getIntent().getExtras();
         dni = extras.getString("dni");
         passwd = extras.getString("passwd");
+        user_id=extras.getInt("user_id");
 
         pedirTest();
-        /*
-        RadioGroup grupo = (RadioGroup) findViewById(R.id.test_choices);
-        int i;
-        for (i = 0; i < 4; i++) {
-            RadioButton radio = new RadioButton(this);
-            radio.setText("Opcion".concat(Integer.toString(i + 1)));
-            radio.setOnClickListener(this);
-            radio.setId(i);
-            grupo.addView(radio);
-        }
-        */
+    }
+
+    public void enviarChoice(final int user_id, final int choice){
+        new Comunicacion<Integer>(this){
+            @Override
+            protected Integer work() throws Exception{
+                ObtencionDatos data = new ObtencionDatos(dni,passwd);
+                Integer codigo=data.postChoice(user_id,choice);
+                return codigo;
+            }
+
+            @Override
+            protected void onFinish(Integer result) {
+                System.out.println(result);
+            }
+        }.execute();
     }
 
     public void pedirTest(){
@@ -118,14 +125,17 @@ public class NuevoTest extends AppCompatActivity implements View.OnClickListener
         if (eleccion != correcto) {
             grupo.getChildAt(eleccion).setBackgroundColor(Color.RED);
             Toast.makeText(getApplicationContext(), R.string.incorrecto, Toast.LENGTH_SHORT).show();
+            enviarChoice(user_id,eleccion);
             if (ayuda.get(eleccion) != null) {
                 findViewById(R.id.boton_ayuda).setVisibility(View.VISIBLE);
             }
         } else {
             Toast.makeText(getApplicationContext(), R.string.correcto, Toast.LENGTH_SHORT).show();
+            enviarChoice(user_id,eleccion);
         }
 
     }
+
 
     public void verAyuda(View view){
         LinearLayout layout = (LinearLayout) findViewById(R.id.activity_nuevo_test);

@@ -11,6 +11,7 @@ public class EvaluacionTTA extends AppCompatActivity {
     public static String username= "es.tta.practicaTTA.login";
     public static String dni="";
     public static String passwd="";
+    public static int user_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +23,7 @@ public class EvaluacionTTA extends AppCompatActivity {
         username = extras.getString("username");
         dni = extras.getString("dni");
         passwd = extras.getString("passwd");
+        user_id =extras.getInt("user_id");
 
         TextView textLogin=(TextView)findViewById(R.id.tituloyusername);
         textLogin.setText("Bienvenido ".concat(username));
@@ -35,6 +37,7 @@ public class EvaluacionTTA extends AppCompatActivity {
         Bundle extras=new Bundle();
         extras.putString("dni",dni);
         extras.putString("passwd",passwd);
+        extras.putInt("user_id",user_id);
         nuevo_test.putExtras(extras);
         startActivity(nuevo_test);
     }

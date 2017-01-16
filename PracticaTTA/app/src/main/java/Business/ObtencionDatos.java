@@ -78,4 +78,16 @@ public class ObtencionDatos {
         return ejercicio;
     }
 
+    public int postChoice(int userid,int choiceid) throws Exception{
+
+        JSONObject json=new JSONObject();
+        cliente.setHttpBasicAuth(dni,password);
+
+        json.put("userId",userid);
+        json.put("choiceId",choiceid);
+
+        return cliente.postJson(json,"postChoice");
+
+    }
+
 }
