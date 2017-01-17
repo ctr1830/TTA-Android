@@ -159,7 +159,7 @@ public class NuevoEjercicio extends AppCompatActivity {
                     @Override
                     protected Integer work() throws Exception{
                         ObtencionDatos data = new ObtencionDatos(dni,passwd);
-                        Integer codigo=data.postFile(displayName,getContentResolver().openInputStream(uri),"postExercise?user="+user_id+"id=1");
+                        Integer codigo=data.postFile("postExercise?user="+user_id+"&id=1",getContentResolver().openInputStream(uri),displayName);
                         return codigo;
                     }
 
