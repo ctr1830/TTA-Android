@@ -25,6 +25,7 @@ import Data.Exercise;
 public class NuevoEjercicio extends AppCompatActivity {
     public static String dni;
     public static String passwd;
+    private int user_id;
     public final static int PICTURE_REQUEST_CODE=1;
     public final static int VIDEO_REQUEST_CODE=2;
     public final static int AUDIO_REQUEST_CODE=3;
@@ -37,6 +38,7 @@ public class NuevoEjercicio extends AppCompatActivity {
         Bundle extras=getIntent().getExtras();
         dni = extras.getString("dni");
         passwd = extras.getString("passwd");
+        user_id=extras.getInt("user_id");
 
         pedirEjercicio();
     }
@@ -127,7 +129,7 @@ public class NuevoEjercicio extends AppCompatActivity {
         }
     }
 
-    public void dumpMetaData(Uri uri){
+    public void dumpMetaData(final Uri uri){
 
         Cursor cursor = null;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN) {
@@ -140,10 +142,8 @@ public class NuevoEjercicio extends AppCompatActivity {
         try {
             if (cursor != null && cursor.moveToFirst()) {
 
-                String displayName = cursor.getString(
+                final String displayName = cursor.getString(
                         cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
-
-
                 int sizeIndex = cursor.getColumnIndex(OpenableColumns.SIZE);
                 String size = null;
                 if (!cursor.isNull(sizeIndex)) {
@@ -154,6 +154,20 @@ public class NuevoEjercicio extends AppCompatActivity {
                     size = "Unknown";
                     Toast.makeText(this,displayName,Toast.LENGTH_SHORT).show();
                 }
+
+                new Comunicacion<Integer>(this){
+                    @Override
+                    protected Integer work() throws Exception{
+                        ObtencionDatos data = new ObtencionDatos(dni,passwd);
+                        Integer codigo=data.postFile(displayName,getContentResolver().openInputStream(uri),"postExercise?user="+user_id+"id=1");
+                        return codigo;
+                    }
+
+                    @Override
+                    protected void onFinish(Integer result) {
+                        System.out.println(result);
+                    }
+                }.execute();
             }
         } finally {
             cursor.close();

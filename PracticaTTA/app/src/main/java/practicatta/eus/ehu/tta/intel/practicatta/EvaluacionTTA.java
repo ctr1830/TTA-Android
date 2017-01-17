@@ -47,6 +47,7 @@ public class EvaluacionTTA extends AppCompatActivity {
         Bundle extras=new Bundle();
         extras.putString("dni",dni);
         extras.putString("passwd",passwd);
+        extras.putInt("user_id",user_id);
         nuevo_ejercicio.putExtras(extras);
         startActivity(nuevo_ejercicio);
     }

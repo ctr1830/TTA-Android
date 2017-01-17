@@ -4,6 +4,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.io.InputStream;
 
 import Data.Choice;
 import Data.Exercise;
@@ -87,6 +88,12 @@ public class ObtencionDatos {
         json.put("choiceId",choiceid);
 
         return cliente.postJson(json,"postChoice");
+    }
+
+    public int postFile(String path, InputStream is, String filename)throws Exception{
+        cliente.setHttpBasicAuth(dni,password);
+
+        return cliente.postFile(path,is,filename);
 
     }
 
