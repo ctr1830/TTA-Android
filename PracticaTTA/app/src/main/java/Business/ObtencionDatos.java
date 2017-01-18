@@ -90,10 +90,10 @@ public class ObtencionDatos {
         return cliente.postJson(json,"postChoice");
     }
 
-    public int postFile(String path, InputStream is, String filename)throws Exception{
+    public int postFile(int user_id, InputStream is, String filename)throws Exception{
         cliente.setHttpBasicAuth(dni,password);
 
-        return cliente.postFile(path,is,filename);
+        return cliente.postFile("postExercise?user="+user_id+"&id=1",is,filename);
 
     }
 
